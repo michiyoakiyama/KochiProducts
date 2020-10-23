@@ -13,30 +13,30 @@
 	<h1>商品の新規登録</h1>
 
 	<form method="post" enctype="multipart/form-data">
-		<div>
-			<label> 名前: <input type="text" name="name">
+		<div class="form-group">
+			<label> 名前: <input type="text" name="name" class="form-control">
 			</label>
 		</div>
-		<div>
-			<label> 価格: <input type="text" name="price">
+		<div class="form-group">
+			<label> 価格: <input type="text" name="price" class="form-control">
 			</label>
 		</div>
-		<div>
-			<label> 在庫数: <input type="text" name="stock" value="<c:out value='${product.stock }' />">
+		<div class="form-group">
+			<label> 在庫数: <input type="text" name="stock" class="form-control" value="<c:out value='${product.stock }' />">
 			</label>
 		</div>
-		<div>
+		<div class="form-group">
 			<label>
 				説明: <br>
-				<textarea name="description"><c:out value='${product.stock }' /></textarea>
+				<textarea name="description"  class="form-control"><c:out value='${product.stock }' /></textarea>
 			</label>
 		</div>
-		<div>
+		<div class="form-group">
 			<label> 画像: <input type="file" name="image">
 			</label>
 		</div>
-		<div>
-			<select name="status">
+		<div class="form-group">
+			<select name="status" class="form-control">
 				<option value="0" <c:if test='${product.status == 0 }'>selected</c:if> >
 					非公開
 				</option>
@@ -45,8 +45,8 @@
 				</option>
 			</select>
 		</div>
-		<div>
-			<select name="category">
+		<div class="form-group">
+			<select name="category" class="form-control">
 				<option value="魚介類" <c:if test='${product.category == "魚介類" }'>selected</c:if> >
 					魚介類
 				</option>
@@ -61,8 +61,8 @@
 				</option>
 			</select>
 		</div>
-		<div>
-			<input type="submit" value="新規作成">
+		<div class="form-group">
+			<input type="submit" class="form-control" value="新規作成">
 		</div>
 	</form>
 	<p>

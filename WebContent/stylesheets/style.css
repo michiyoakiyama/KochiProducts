@@ -18,8 +18,10 @@
 	font-weight: bold;
 }
 
-main {
+.main {
 	background-color: #fcf0cd;
+	border-top: solid 1px gray;
+	border-bottom: solid 1px gray;
 }
 
 .main_title {
@@ -51,7 +53,9 @@ main {
 	display: block;
 }
 
-
+.products {
+	margin-top: 50px;
+}
 .product.card {
 	margin-bottom: 20px;
 	padding: 10px;
@@ -73,4 +77,8 @@ main {
 }
 .product_title a {
 	color: #f85f73;
+}
+
+.card.about {
+	margin-bottom: 50px;
 }

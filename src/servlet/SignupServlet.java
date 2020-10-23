@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,9 +59,15 @@ public class SignupServlet extends HttpServlet {
 	    }
 
 	    UserDAO userDAO = new UserDAO();
-		userDAO.insertUser(name, password);
+	    User user;
+	    try {
+			userDAO.insertUser(name, password);
 
-		User user = userDAO.getUserByName(name);
+			user = userDAO.getUserByName(name);
+	    } catch (SQLException | ClassNotFoundException e) {
+	    	response.sendRedirect("/KochiProducts/error.jsp");
+			return;
+	    }
 	    // 登録したユーザ情報をセッションスコープに保存
 	    HttpSession session = request.getSession();
 	    session.setAttribute("user", user);

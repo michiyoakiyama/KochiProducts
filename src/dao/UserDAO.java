@@ -17,7 +17,7 @@ public class UserDAO {
     private final String DB_USER = "sa";
     private final String DB_PASS = "";
 
-	public User getUser(int id) {
+	public User getUser(int id) throws SQLException, ClassNotFoundException {
 		String sql = "SELECT id,name,password FROM users"
 				+ " WHERE id = ?";
 		Connection connection = null;
@@ -29,20 +29,21 @@ public class UserDAO {
 			statement.setInt(1, id);
 			result = statement.executeQuery();
 			result.next();
-			return new User(
-					result.getInt("id"),
-					result.getString("name"),
-					result.getString("password")
-			);
+
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
+			throw e;
 		} finally {
 			allClose(statement, connection);
 		}
-		return null;
+		return new User(
+				result.getInt("id"),
+				result.getString("name"),
+				result.getString("password")
+		);
 	}
 
-	public User getUserByName(String name) {
+	public User getUserByName(String name) throws SQLException, ClassNotFoundException {
 		String sql = "SELECT id,name,password FROM users"
 				+ " WHERE name = ?";
 		Connection connection = null;
@@ -53,21 +54,24 @@ public class UserDAO {
 			statement = connection.prepareStatement(sql);
 			statement.setString(1, name);
 			result = statement.executeQuery();
-			result.next();
-			return new User(
-					result.getInt("id"),
-					result.getString("name"),
-					result.getString("password")
-			);
+			if(result.next()) {
+				return new User(
+						result.getInt("id"),
+						result.getString("name"),
+						result.getString("password")
+				);
+			}
+			return null;
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
+			throw e;
 		} finally {
 			allClose(statement, connection);
 		}
-		return null;
+
 	}
 
-	public List<User> getUsers() {
+	public List<User> getUsers() throws SQLException, ClassNotFoundException{
 		String sql = "SELECT id,name,password FROM users";
 		List<User> users = new ArrayList<>();
 		Connection connection = null;
@@ -87,20 +91,20 @@ public class UserDAO {
 				// 11. リストにProductインスタンスを追加する
 				users.add(user);
 			}
-			return users;
+
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
-
+			throw e;
 		} finally {
 			allClose(statement, connection);
 		}
-		return null;
+		return users;
 	}
 
-	public boolean insertUser(
+	public boolean insertUser (
 			String name,
 			String password
-	) {
+	) throws SQLException, ClassNotFoundException {
 		String sql = "INSERT INTO users (name, password)"
 				+ " VALUES (?, ?)";
 		Connection connection = null;
@@ -117,7 +121,7 @@ public class UserDAO {
             }
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
-			return false;
+			throw e;
 		} finally {
 			allClose(statement, connection);
 		}
