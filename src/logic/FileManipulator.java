@@ -10,7 +10,7 @@ import java.util.Random;
 import javax.servlet.http.Part;
 
 public class FileManipulator {
-	final String SAVE_DIR = "/Users/thisprodigious/EclipseJavaProjects/KochiProducts/WebContent/images/";
+	final String SAVE_DIR = "ここにWebContent/imagesのパスを設定";
 
 	public boolean deleteFile(String file_name) {
 		File file = new File(getFileSavePath(file_name));
