@@ -82,6 +82,41 @@ public class ProductDAO {
 		return null;
 	}
 
+	public List<Product> getOpenProducts() {
+		String sql = "SELECT id, name, price, stock, description, image, status, category FROM products WHERE status = 1";
+		List<Product> products = new ArrayList<>();
+		Connection connection = null;
+		ResultSet result = null;
+		PreparedStatement statement = null;
+		try {
+			connection = connect();
+			statement = connection.prepareStatement(sql);
+
+			result = statement.executeQuery();
+			while (result.next()) {
+				Product product = new Product(
+						result.getInt("id"),
+						result.getString("name"),
+						result.getInt("price"),
+						result.getInt("stock"),
+						result.getString("description"),
+						result.getString("image"),
+						result.getInt("status"),
+						result.getString("category")
+				);
+				// 11. リストにProductインスタンスを追加する
+				products.add(product);
+			}
+			return products;
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+
+		} finally {
+			allClose(statement, connection);
+		}
+		return null;
+	}
+
 	public List<Product> getProductsByKeyword(String keyword) {
 		String sql = "SELECT id, name, price, stock, description, image, status, category FROM products"
 				+ " WHERE name LIKE ? OR description LIKE ?";

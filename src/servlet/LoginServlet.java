@@ -44,7 +44,14 @@ public class LoginServlet extends HttpServlet {
 	    // ユーザ情報をセッションスコープに保存
 	    HttpSession session = request.getSession();
 	    session.setAttribute("user", new User(name,password));
-	    // トップへ
-	    response.sendRedirect("/KochiProducts/products");
+
+	    if(user.getName().equals("admin")) {
+	    	// 管理画面へ
+		    response.sendRedirect("/KochiProducts/admin");
+	    } else {
+	    	// トップへ
+		    response.sendRedirect("/KochiProducts/products");
+	    }
+
   }
 }

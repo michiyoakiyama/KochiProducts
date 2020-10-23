@@ -37,7 +37,6 @@ public class ProductsServlet extends HttpServlet {
 		User user = (User) session.getAttribute("user");
 		if( user == null ){
 			// ログインしていない場合（直接リクエスト）
-			request.setAttribute("loginFailure", "ログインしてください。");
 			response.sendRedirect("/KochiProducts/login");
 			return;
 		}
@@ -53,7 +52,7 @@ public class ProductsServlet extends HttpServlet {
 		} else if(category != null) {
 			products = productDAO.getProductsByCategory(category);
 		} else {
-			products = productDAO.getProducts();
+			products = productDAO.getOpenProducts();
 		}
 
 		request.setAttribute("products", products);
