@@ -73,15 +73,15 @@
 				<!-- スライドさせる画像の設定 -->
 				<div class="carousel-inner">
 					<div class="carousel-item active">
-						<img class="d-block w-100" src="./images/VTEHIGULL8Y6MXTS09YJ.jpg"
+						<img class="d-block w-100" src="https://placehold.jp/960x300.png"
 							alt="第1スライド">
 					</div>
 					<div class="carousel-item">
-						<img class="d-block w-100" src="./images/VTEHIGULL8Y6MXTS09YJ.jpg"
+						<img class="d-block w-100" src="https://placehold.jp/960x300.png"
 							alt="第2スライド">
 					</div>
 					<div class="carousel-item">
-						<img class="d-block w-100" src="./images/VTEHIGULL8Y6MXTS09YJ.jpg"
+						<img class="d-block w-100" src="https://placehold.jp/960x300.png"
 							alt="第3スライド">
 					</div>
 					<!-- /.carousel -->

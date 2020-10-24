@@ -13,7 +13,7 @@ import bean.Product;
 public class ProductDAO {
 	private static final long serialVersionUID = 1L;
 	private final String DRIVER_NAME = "org.h2.Driver";
-    private final String JDBC_URL = "jdbc:h2:~/h2_db/codecamp";
+    private final String JDBC_URL = "jdbc:h2:~/h2_db/kouchi";
     private final String DB_USER = "sa";
     private final String DB_PASS = "";
 
