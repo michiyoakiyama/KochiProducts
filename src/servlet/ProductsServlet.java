@@ -36,22 +36,35 @@ public class ProductsServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 		if( user == null ){
+ 			user = new User();
+ 			user.setName("ゲスト");
+		}
+		request.setAttribute("user", user);
+
+		/*if( user == null ){
 			// ログインしていない場合（直接リクエスト）
 			response.sendRedirect("/KochiProducts/login");
 			return;
-		}
+		}*/
 
-
+		// DBから商品データを取得するために、ProductDAOを生成
 		ProductDAO productDAO = new ProductDAO();
 
+		// GET送信されたキーワードを取得
 		String keyword = request.getParameter("keyword");
+		// GET送信されたカテゴリーを取得
 		String category = request.getParameter("category");
+		// 商品リストを代入するための変数を宣言
 		List<Product> products;
+
 		if (keyword != null) {
+			// キーワードが送信されていればキーワード検索
 			products = productDAO.getProductsByKeyword(keyword);
 		} else if(category != null) {
+			// カテゴリーが送信されていればキーワード検索
 			products = productDAO.getProductsByCategory(category);
 		} else {
+			// どちらも送信されていなければ、全ての公開されている商品を取得
 			products = productDAO.getOpenProducts();
 		}
 

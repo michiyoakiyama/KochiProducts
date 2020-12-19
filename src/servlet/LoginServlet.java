@@ -43,7 +43,7 @@ public class LoginServlet extends HttpServlet {
 
 	    // ユーザ情報をセッションスコープに保存
 	    HttpSession session = request.getSession();
-	    session.setAttribute("user", new User(name,password));
+	    session.setAttribute("user", user);
 
 	    if(user.getName().equals("admin")) {
 	    	// 管理画面へ

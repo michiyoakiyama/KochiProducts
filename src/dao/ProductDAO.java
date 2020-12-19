@@ -119,7 +119,7 @@ public class ProductDAO {
 
 	public List<Product> getProductsByKeyword(String keyword) {
 		String sql = "SELECT id, name, price, stock, description, image, status, category FROM products"
-				+ " WHERE name LIKE ? OR description LIKE ?";
+				+ " WHERE (name LIKE ? OR description LIKE ?) AND status =1";
 		List<Product> products = new ArrayList<>();
 		Connection connection = null;
 		ResultSet result = null;
@@ -127,8 +127,10 @@ public class ProductDAO {
 		try {
 			connection = connect();
 			statement = connection.prepareStatement(sql);
-			statement.setString(1, keyword);
-			statement.setString(2, keyword);
+			//検索された１つ目の？に入る文字列
+			statement.setString(1, "%" + keyword + "%");
+			//検索された１つ目の？に入る文字列
+			statement.setString(2, "%" + keyword + "%");
 			result = statement.executeQuery();
 			while (result.next()) {
 				Product product = new Product(

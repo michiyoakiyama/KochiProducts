@@ -44,7 +44,14 @@ public class AdminServlet extends HttpServlet {
 		ProductDAO productDAO = new ProductDAO();
 
 		List<Product> products;
-		products = productDAO.getProducts();
+
+		String keyword = request.getParameter("keyword");
+		System.out.println(keyword);
+		if (keyword != null) {
+			products = productDAO.getProductsByKeyword(keyword);
+		} else {
+			products = productDAO.getProducts();
+		}
 
 		request.setAttribute("products", products);
 	    request.getRequestDispatcher("/WEB-INF/jsp/admin.jsp").forward(request, response);

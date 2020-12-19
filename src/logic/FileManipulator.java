@@ -10,7 +10,7 @@ import java.util.Random;
 import javax.servlet.http.Part;
 
 public class FileManipulator {
-	final String SAVE_DIR = "ここにWebContent/imagesのパスを設定";
+	final String SAVE_DIR = "/Users/michiyo/git/KochiProducts/WebContent/images/";
 
 	public boolean deleteFile(String file_name) {
 		File file = new File(getFileSavePath(file_name));
@@ -24,7 +24,6 @@ public class FileManipulator {
 			System.out.println("ファイルが見つかりません");
 		}
 		return true;
-
 	}
 
 	public String saveFile(Part part) throws IOException {

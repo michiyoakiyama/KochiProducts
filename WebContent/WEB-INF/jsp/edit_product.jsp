@@ -5,33 +5,97 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<!-- CDNから Bootstrapを読み込む -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
 <meta charset="UTF-8">
 <title>商品情報の編集</title>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+<style>
+.navbar-light .navbar-brand.logo {
+	font-size: 35px;
+	font-weight: bold;
+}
+.nav-item {
+	margin-top: 10px;
+}
+h1 {
+	margin: 20px 0px;
+}
+.row {
+	margin-bottom: 15px;
+	font-size: 16px;
+}
+.new-buttun {
+	width: 100px;
+	margin: 20px 0px;
+}
+.col-1 {
+	margin: 0px;
+}
+.product_image {
+	height: 200px;
+}
+</style>
 </head>
 <body>
+<header>
+	  <nav class="navbar navbar-expand-sm navbar-light bg-light">
+	    <a class="navbar-brand logo" href="./products">HAPPY FRUITS</a>
+	    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#header_nav">
+	      <span class="navbar-toggler-icon"></span>
+	    </button>
+	    <div class="collapse navbar-collapse" id="header_nav">
+	      <ul class="navbar-nav mr-auto">
+	        <li class="nav-item">
+	          <a class="nav-link" href="./admin">商品管理</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" href="./logout">ログアウト</a>
+	        </li>
+	      </ul>
+	    </div>
+	  </nav>
+	</header>
+	<main>
+		<div class="container contents">
 	<h1>商品情報の編集</h1>
 
 	<form method="post">
-		<div>
-			<label> 名前: <input type="text" name="name" value="${product.name }">
-			</label>
+		<div class="row">
+			<label class="col-1">名前</label>
+			<input type="text" name="name" value="${product.name }" class="form-control col-10">
+
 		</div>
-		<div>
-			<label> 価格: <input type="text" name="price" value="${product.price }">
-			</label>
+		<div class="row">
+			<label class="col-1">価格</label>
+			<input type="text" name="price" value="${product.price }" class="form-control col-10">
 		</div>
-		<div>
-			<label> 在庫数: <input type="text" name="stock" value="${product.stock }">
-			</label>
+		<div class="row">
+			<label class="col-1">在庫数</label>
+			<input type="text" name="stock" value="${product.stock }" class="form-control col-10">
 		</div>
-		<div>
-			<label>
-				説明: <br>
-				<textarea name="description">${product.description }</textarea>
-			</label>
+		<div class="row">
+			<label class="col-1">説明</label>
+				<textarea name="description" class="form-control col-10" rows="7">${product.description }</textarea>
 		</div>
-		<div>
-			<select name="status">
+			<div class="row">
+				<label class="col-1">画像</label> <img class="product_image "
+					src="./images/${product.image }" />
+			</div>
+			<div class="row">
+				<label class="col-1">    </label>
+				<input type="file" name="image">
+			</div>
+			<div class="row">
+		<label class="col-1">状態</label>
+			<select name="status" class="form-control col-2">
 				<option value="0" <c:if test='${product.status == 0 }'>selected</c:if> >
 					非公開
 				</option>
@@ -40,30 +104,27 @@
 				</option>
 			</select>
 		</div>
-		<div>
-			<select name="category">
-				<option value="魚介類" <c:if test='${product.category == "魚介類" }'>selected</c:if> >
-					魚介類
+		<div class="row">
+		<label class="col-1">種類</label>
+			<select name="category" class="form-control col-2">
+				<option value="今が旬" <c:if test='${product.category == "今が旬" }'>selected</c:if> >
+					今が旬
 				</option>
-				<option value="肉類" <c:if test='${product.category == "肉類" }'>selected</c:if> >
-					肉類
+				<option value="贈り物" <c:if test='${product.category == "贈り物" }'>selected</c:if> >
+					贈り物
 				</option>
-				<option value="くだもの" <c:if test='${product.category == "くだもの" }'>selected</c:if> >
-					くだもの
-				</option>
-				<option value="野菜類" <c:if test='${product.category == "野菜類" }'>selected</c:if> >
-					野菜類
+				<option value="ご褒美" <c:if test='${product.category == "ご褒美" }'>selected</c:if> >
+					ご褒美
 				</option>
 			</select>
 		</div>
 		 <input type="hidden" name="file_name" value="${product.image}">
 		<div>
-			<input type="submit" value="更新">
+			<input type="submit" value="更新" class="new-buttun">
 		</div>
 	</form>
-	<p>
-			<a href="./admin">商品管理画面に戻る</a>
-		</p>
+		</div>
+		</main>
 </body>
 </html>
 

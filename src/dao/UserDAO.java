@@ -17,8 +17,9 @@ public class UserDAO {
     private final String DB_USER = "sa";
     private final String DB_PASS = "";
 
+    //
 	public User getUser(int id) {
-		String sql = "SELECT id,name,password FROM users"
+		String sql = "SELECT id,name,password,mail FROM users"
 				+ " WHERE id = ?";
 		Connection connection = null;
 		PreparedStatement statement = null;
@@ -32,7 +33,8 @@ public class UserDAO {
 			return new User(
 					result.getInt("id"),
 					result.getString("name"),
-					result.getString("password")
+					result.getString("password"),
+					result.getString("mail")
 			);
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
@@ -58,6 +60,7 @@ public class UserDAO {
 					result.getInt("id"),
 					result.getString("name"),
 					result.getString("password")
+
 			);
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
@@ -82,7 +85,8 @@ public class UserDAO {
 				User user = new User(
 						result.getInt("id"),
 						result.getString("name"),
-						result.getString("password")
+						result.getString("password"),
+						result.getString("mail")
 				);
 				// 11. リストにProductインスタンスを追加する
 				users.add(user);
@@ -99,9 +103,10 @@ public class UserDAO {
 
 	public boolean insertUser(
 			String name,
-			String password
+			String password,
+			String mail
 	) {
-		String sql = "INSERT INTO users (name, password)"
+		String sql = "INSERT INTO users (name, password,mail )"
 				+ " VALUES (?, ?)";
 		Connection connection = null;
 		int result = 0;
@@ -111,6 +116,7 @@ public class UserDAO {
 			statement = connection.prepareStatement(sql);
 			statement.setString(1, name);
 			statement.setString(2, password);
+			statement.setString(3, mail);
 			result = statement.executeUpdate();
 			if (result != 1) {
                 return false;

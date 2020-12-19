@@ -41,8 +41,10 @@ public class SignupServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		//メールアドレスを追加
 	    String name = request.getParameter("name");
 	    String password = request.getParameter("password");
+	    String mail = request.getParameter("mail");
 
 		List<String> errors = new ArrayList<String>();
 	    if( name == "" ) {
@@ -51,21 +53,26 @@ public class SignupServlet extends HttpServlet {
 	    if( password == "" ) {
 	    	errors.add("パスワードを入力してください。");
 	    }
+	    if( mail == ""){
+	    	errors.add("メールアドレスを入力してください。");
+	    }
 	    if(errors.size() > 0) {
 	    	request.setAttribute("errors", errors);
 		    doGet(request, response);
 		    return;
 	    }
 
+
+	    //アドレスを追加。情報として登録はしたいが、ログイン時には必要ない時の処理は？
 	    UserDAO userDAO = new UserDAO();
-		userDAO.insertUser(name, password);
+		userDAO.insertUser(name, password, mail);
 
 		User user = userDAO.getUserByName(name);
 	    // 登録したユーザ情報をセッションスコープに保存
 	    HttpSession session = request.getSession();
 	    session.setAttribute("user", user);
-	    // トップへ
-	    response.sendRedirect("/KochiProducts/products");
+	    // ログインへ
+	    response.sendRedirect("/KochiProducts/login");
 	}
 
 }

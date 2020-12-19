@@ -11,8 +11,19 @@
 .product_image {
 	height: 150px;
 }
+
+.navbar-light .navbar-brand.logo {
+	color: #283c63;
+	font-size: 25px;
+	font-weight: bold;
+}
+
+
 .contents {
 	padding-top: 30px;
+}
+.search {
+	margin: 20px 0;
 }
 
 .search .btn.btn-outline-secondary {
@@ -47,7 +58,9 @@
 .product_figure {
 	/* padding: 10px; */
 }
+.product_description {
 
+}
 .product_title {
 	font-size: 20px;
 }
